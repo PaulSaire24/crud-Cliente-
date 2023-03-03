@@ -27,7 +27,6 @@ public class ClienteTest {
 	
 	
 	@Test
-	@Rollback(false)
 	public void testClienteSave() {
 		Cliente cliente =  new Cliente();
 		cliente.setNombre("Pedro");
@@ -58,11 +57,9 @@ public class ClienteTest {
 	}
 	
 	@Test
-	@Rollback(false)
 	public void updateCliente() {
 		Integer idCliente = 2;
-		Optional<Cliente> clieteFound =  clienteDao.findById(idCliente);
-		
+		Optional<Cliente> clieteFound =  clienteDao.findById(idCliente);		
 		assertNull(clieteFound.get());
 	}
 	

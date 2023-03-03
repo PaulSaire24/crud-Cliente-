@@ -86,10 +86,6 @@ class SpringBootBackendApirestApplicationTests {
 	@Test
 	void tercerTest() {	
 		
-		Cliente cliente = new Cliente();
-		
-		clienteService.delete(1);
-		
 		verify(clienteDao).deleteById(1);
 	}
 	
@@ -115,6 +111,9 @@ class SpringBootBackendApirestApplicationTests {
 		assertEquals(clienteTest.getSexo(), "Femenino");
 		assertNotEquals(clienteTest, null);
 	}
+	
+	
+	
 	
 
 }
