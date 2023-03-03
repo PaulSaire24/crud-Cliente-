@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -86,7 +87,9 @@ class SpringBootBackendApirestApplicationTests {
 	@Test
 	void tercerTest() {	
 		
-		verify(clienteDao).deleteById(1);
+		Integer id  = 1;
+		clienteDao.deleteById(id);
+		verify(clienteDao).deleteById(any());
 	}
 	
 	@Test

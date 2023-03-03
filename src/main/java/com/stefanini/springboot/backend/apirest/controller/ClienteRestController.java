@@ -106,8 +106,9 @@ public class ClienteRestController {
 			clienteActual.setFechaCrea(cliente.getFechaCrea());
 			
 			clienteUpdate =  clienteServce.save(clienteActual);			
-		
+		response.put("cliente", clienteUpdate);
 		response.put("mensaje", "Cliente actualizado correctamente");
+		
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
 	}
 	

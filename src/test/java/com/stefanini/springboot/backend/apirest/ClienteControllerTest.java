@@ -29,6 +29,7 @@ import com.stefanini.springboot.backend.apirest.controller.ClienteRestController
 import com.stefanini.springboot.backend.apirest.models.entity.Cliente;
 import com.stefanini.springboot.backend.apirest.service.IClienteService;
 
+
 @WebMvcTest(ClienteRestController.class)
 public class ClienteControllerTest {
 	
@@ -102,8 +103,7 @@ public class ClienteControllerTest {
 				.content(objectMapper.writeValueAsString(response)))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.mensaje").value("Cliente eliminado correctamente"));
-		
+				.andExpect(jsonPath("$.mensaje").value("Cliente eliminado correctamente"));	
 	}
 	
 	@Test
@@ -118,16 +118,14 @@ public class ClienteControllerTest {
 		cliente.setSexo("Masculino");
 		cliente.setFechaCrea(new Date());
 		
+		when(clienteService.findById(1)).thenReturn(cliente);
+		when(clienteService.save(any(Cliente.class))).thenReturn(cliente);
 		
-		Map<String, Object> response = new HashMap<>();
-		response.put("mensaje", "Cliente actualizado correctamente");
-		
-		this.mockMvc.perform(put("/api/cliente/delete/1").contentType(MediaType.APPLICATION_JSON)
-				)
-		.andExpect(status().isCreated())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.mensaje").value("Cliente actualizado correctamente"));
-		
+		this.mockMvc.perform(put("/api/cliente/update/1").contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(cliente)))
+					.andExpect(status().isCreated())
+					.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+					.andExpect(jsonPath("$.mensaje").value("Cliente actualizado correctamente"));	
 	}
 	
 	@Test
@@ -157,8 +155,4 @@ public class ClienteControllerTest {
 		
 	}
 	
-	
-	
-	
-
 }

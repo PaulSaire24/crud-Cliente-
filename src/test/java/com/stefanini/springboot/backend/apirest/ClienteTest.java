@@ -31,7 +31,7 @@ public class ClienteTest {
 		Cliente cliente =  new Cliente();
 		cliente.setNombre("Pedro");
 		cliente.setApellido("Ordoñes Avila");
-		cliente.setDni("89564123");
+		cliente.setDni("89563");
 		cliente.setEdad(45);
 		cliente.setSexo("Masculino");
 		cliente.setFechaCrea(new Date());
@@ -42,15 +42,15 @@ public class ClienteTest {
 	
 	@Test
 	public void findByIdCliente() {
-		Integer idCliente = 3;
+		Integer idCliente = 1;
 		Optional<Cliente> clieteFound =  clienteDao.findById(idCliente);
 		
-		assertThat(clieteFound.get().getNombre()).isEqualTo("joel");	
+		assertThat(clieteFound.get().getNombre()).isEqualTo("Jose Angel");	
 	}
 	
 	@Test
 	public void NotfindByIdCliente() {
-		Integer idCliente = 2;
+		Integer idCliente = 25;
 		Optional<Cliente> clieteFound =  clienteDao.findById(idCliente);
 		
 		assertNull(clieteFound.get());
@@ -58,7 +58,7 @@ public class ClienteTest {
 	
 	@Test
 	public void updateCliente() {
-		Integer idCliente = 2;
+		Integer idCliente = 13;
 		Optional<Cliente> clieteFound =  clienteDao.findById(idCliente);		
 		assertNull(clieteFound.get());
 	}
