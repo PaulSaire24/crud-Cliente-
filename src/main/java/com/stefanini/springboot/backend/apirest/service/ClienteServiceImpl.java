@@ -72,7 +72,7 @@ public class ClienteServiceImpl implements IClienteService {
 			throw new ModelNotFoundException("El cliente que desea eliminar no existe");
 		}
 
-	 clienteDao.deleteById(id);
+	 clienteDao.deleteById(id); 
 		
 	}
 

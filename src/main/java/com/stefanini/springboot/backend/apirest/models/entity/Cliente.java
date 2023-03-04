@@ -11,11 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="cliente")
+@Getter
+@Setter
 public class Cliente implements Serializable {
 	
 
@@ -37,52 +43,8 @@ public class Cliente implements Serializable {
 	
 	private String sexo;
 	
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	public Integer getEdad() {
-		return edad;
-	}
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
 	@Column(name="fecha_crea")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCrea;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public Date getFechaCrea() {
-		return fechaCrea;
-	}
-	public void setFechaCrea(Date fechaCrea) {
-		this.fechaCrea = fechaCrea;
-	}
-	public String getDni() {
-		return dni;
-	}
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
 	
 }
