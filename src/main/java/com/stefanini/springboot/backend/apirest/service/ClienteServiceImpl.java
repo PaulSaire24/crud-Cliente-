@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stefanini.springboot.backend.apirest.co.ittera.exception.ClienteNotFound;
 import com.stefanini.springboot.backend.apirest.co.ittera.exception.InternalServerError;
-import com.stefanini.springboot.backend.apirest.co.ittera.exception.ModelNotFoundException;
 import com.stefanini.springboot.backend.apirest.dao.IClienteDao;
 import com.stefanini.springboot.backend.apirest.models.entity.Cliente;
 
@@ -28,14 +28,8 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	@Transactional
 	public Cliente findById(Integer id) {
-		
-		Optional<Cliente> cli = clienteDao.findById(id);
-		
-		if(cli.isEmpty()) {
-			throw new ModelNotFoundException("El cliente no existe en la  base de datos");
-		}
-		
-		return clienteDao.findById(id).orElse(null);
+			
+		return clienteDao.findById(id).orElseThrow(()-> new ClienteNotFound("Cliente no encontrado con id:" + id));
 	}
 
 	@Override
@@ -53,7 +47,7 @@ public class ClienteServiceImpl implements IClienteService {
 		List<Cliente> lista =  clienteDao.findAll();
 		
 		for(int i = 0;i<lista.size();i++) {
-			if(cliente.getDni().equals(lista.get(i).getDni())) {
+			if(cliente.getDni().equals(lista.get(i).getDni()) && cliente.getId() == null ) {
 				throw new InternalServerError("El ciente no puede tener un dni igual a otro cliente");
 			}
 		}
@@ -66,11 +60,7 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional
 	public void delete(Integer id)  {
 		
-		Optional<Cliente> cli = clienteDao.findById(id);
-		
-		if(cli.isEmpty()) {
-			throw new ModelNotFoundException("El cliente que desea eliminar no existe");
-		}
+		Optional<Cliente> cli = Optional.ofNullable(clienteDao.findById(id).orElseThrow(()-> new ClienteNotFound("El cliente que desea eliminar no existe con id:" + id)));
 
 	 clienteDao.deleteById(id); 
 		

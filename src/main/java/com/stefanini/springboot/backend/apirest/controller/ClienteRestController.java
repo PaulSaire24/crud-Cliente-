@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stefanini.springboot.backend.apirest.co.ittera.exception.InternalServerError;
-import com.stefanini.springboot.backend.apirest.co.ittera.exception.ModelNotFoundException;
 import com.stefanini.springboot.backend.apirest.models.entity.Cliente;
 import com.stefanini.springboot.backend.apirest.service.IClienteService;
 
@@ -39,23 +36,9 @@ public class ClienteRestController {
 	ResponseEntity<?> createCliente(@RequestBody Cliente cliente) throws Exception{
 		Cliente clienteNew =  null;
 		Map<String, Object> response = new HashMap<>();
-//		
-//		try {
-//			cliente.setFechaCrea(new Date());
-//			clienteNew = clienteServce.save(cliente);
-//		} catch (DataAccessException e) {
-//			 response.put("mensaje", "Error al realizar el insert en la BD");
-//	         response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().toString()));
-//	         return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-		
+	
 		cliente.setFechaCrea(new Date());
-		clienteNew = clienteServce.save(cliente);
-		
-//		if(clienteNew== null) {
-//			System.out.println("holla");
-//			throw new InternalServerError("error al querer guardar en la  base de datos");
-//		}
+		clienteNew = clienteServce.save(cliente);		
 		
 		response.put("mensaje", "Cliente registrado correctamente.");
 		response.put("cliente", clienteNew);
@@ -68,25 +51,7 @@ public class ClienteRestController {
 		
 		Map<String, Object> response = new HashMap<>();
 		Cliente ClienteNew = clienteServce.findById(id);
-		
-		
-		
-//		try {
-//			ClienteNew = clienteServce.findById(id);
-//		} catch (DataAccessException e) {
-//			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
-//			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().toString()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-//		}
-//		
-//		if(ClienteNew==null) {
-//			response.put("mensaje", "Error, no se encontro el cliene en la BD.");
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-//		}else {
-//			response.put("cliente",ClienteNew);
-//			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
-//		}
-		
+			
 		response.put("cliente",ClienteNew);
 		response.put("mensaje","Cliente encontrado correctamente");
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
@@ -104,6 +69,7 @@ public class ClienteRestController {
 			clienteActual.setEdad(cliente.getEdad());
 			clienteActual.setSexo(cliente.getSexo());
 			clienteActual.setFechaCrea(cliente.getFechaCrea());
+			clienteActual.setDni(cliente.getDni());
 			
 			clienteUpdate =  clienteServce.save(clienteActual);			
 		response.put("cliente", clienteUpdate);
